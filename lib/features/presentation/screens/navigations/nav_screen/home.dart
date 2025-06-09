@@ -1,5 +1,6 @@
 import 'package:blog_app/core/constant/assetsHelper.dart';
 import 'package:blog_app/core/constant/dimensionHelper.dart';
+import 'package:blog_app/core/constant/shimmer.dart';
 import 'package:blog_app/core/utils/utility.dart';
 import 'package:blog_app/features/presentation/blocs/blogs/blog_bloc.dart';
 import 'package:blog_app/features/presentation/widgets/custom_appbar.dart';
@@ -67,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: BlocBuilder<BlogBloc,BlogState>(
               builder: (context, state) {
                 if(state is BlogLoading){
-                return Center(child: SpinKitFadingCircle(color: Colors.green,size: 50,),);
+                  return ShimmerListView();
+                //return Center(child: SpinKitFadingCircle(color: Colors.green,size: 50,),);
                 }
                 if(state is BlogError){
                   Utils().toastMessage(state.error.toString());
