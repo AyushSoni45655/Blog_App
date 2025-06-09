@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876612238329",
+    "project_id": "blogapp-8a74c",
+    "storage_bucket": "blogapp-8a74c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876612238329:android:f79ea00ecf7bd774981b28",
+        "android_client_info": {
+          "package_name": "com.ayushTech.blog_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2_I9wecUp2FQRXdgLE5fSQwOTNDRHDRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
