@@ -17,3 +17,4 @@ class UserForgotPasswordEvent extends UserEvent{
 }
 class UserLogOutEvent extends UserEvent{}
 class UserIsLoggedInEvent extends UserEvent{}
+class GetUserEvent extends UserEvent{}

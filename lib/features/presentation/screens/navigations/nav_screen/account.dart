@@ -33,6 +33,7 @@ class _AccountScreenState extends State<AccountScreen> {
     nameCon = TextEditingController();
     email = TextEditingController();
     phone = TextEditingController();
+    context.read<UserBloc>().add(GetUserEvent());
   }
   @override
   void dispose() {
@@ -60,111 +61,130 @@ class _AccountScreenState extends State<AccountScreen> {
                   color: Colors.green
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: DimensionHelper.dimens_30.w,
-                    vertical: DimensionHelper.dimens_40.h),
-                child:Column(
-                  children: [
-                    Row(
-                      children: [
-                        CustomText(
-                          text: "UserName",
-                          fontsize: FontHelper.font_34,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        ),
-                        SizedBox(width: DimensionHelper.dimens_100.w,),
-                        CustomText(
-                          text: "Ayush soni",
-                          fontFamily: GoogleFonts.calistoga().fontFamily,
-                          fontsize: FontHelper.font_30,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        )
-                      ],
-                    ),
-                    SizedBox(height: DimensionHelper.dimens_30.h,),
-                    Row(
-                      children: [
-                        CustomText(
-                          text: "Email-Address",
-                          fontsize: FontHelper.font_26,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        ),
-                        SizedBox(width: DimensionHelper.dimens_20.w,),
-                        CustomText(
-                          text: "asoni84080@gmail,com",
-                          fontFamily: GoogleFonts.calistoga().fontFamily,
-                          fontsize: FontHelper.font_26,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        )
-                      ],
-                    ),
-                    SizedBox(height: DimensionHelper.dimens_30.h,),
-                    Row(
-                      children: [
-                        CustomText(
-                          text: "Phone-Number",
-                          fontsize: FontHelper.font_24,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        ),
-                        SizedBox(width: DimensionHelper.dimens_40.w,),
-                        CustomText(
-                          text: "+91 1234567093",
-                          fontFamily: GoogleFonts.calistoga().fontFamily,
-                          fontsize: FontHelper.font_28,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        )
-                      ],
-                    ),
-                    SizedBox(height: DimensionHelper.dimens_30.h,),
-                    Row(
-                      children: [
-                        CustomText(
-                          text: "Password",
-                          fontsize: FontHelper.font_28,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        ),
-                        SizedBox(width: DimensionHelper.dimens_40.w,),
-                        CustomText(
-                          text: "XXXXXX8343",
-                          fontFamily: GoogleFonts.calistoga().fontFamily,
-                          fontsize: FontHelper.font_28,
-                          color: Colors.white,
-                          spacingLetter: 2,
-                        )
-                      ],
-                    ),
-                    SizedBox(height: DimensionHelper.dimens_80.h,),
-                    CustomButton(
-                      callback: () {
-                        customUpdateAlert(formKey: formkey, context: context, nameCon: nameCon, email: email, phone: phone, editCallback: () {
-
-                        },);
-                      },
-                      height: DimensionHelper.dimens_60.h,
-                      width: DimensionHelper.dimens_all,
-                      text: "Edit",
-                      cText: false,
-                    ),
-                    SizedBox(height: DimensionHelper.dimens_50.h,),
-                    BlocListener<UserBloc, UserState>(
-  listener: (context, state) {
-    if(state is UserLogOutState){
-      context.go("/signin");
-      Utils().toastMessage("LogOut Completed");
-    }
+              Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: DimensionHelper.dimens_30.w,
+                        vertical: DimensionHelper.dimens_40.h),
+                    child:BlocBuilder<UserBloc,UserState>(
+  builder: (context, state) {
     if(state is UserErrorState){
       Utils().toastMessage(state.error.toString());
     }
+    if(state is GetUserState){
+      final data = state.entity;
+      return Column(
+        children: [
+          Row(
+            children: [
+              CustomText(
+                text: "UserName",
+                fontsize: FontHelper.font_34,
+                color: Colors.white,
+                spacingLetter: 2,
+              ),
+              SizedBox(width: DimensionHelper.dimens_100.w,),
+              CustomText(
+                text: data.name.toString(),
+                fontFamily: GoogleFonts.calistoga().fontFamily,
+                fontsize: FontHelper.font_30,
+                color: Colors.white,
+                spacingLetter: 2,
+              )
+            ],
+          ),
+          SizedBox(height: DimensionHelper.dimens_30.h,),
+          Row(
+            children: [
+              CustomText(
+                text: "Email-Address",
+                fontsize: FontHelper.font_26,
+                color: Colors.white,
+                spacingLetter: 2,
+              ),
+              SizedBox(width: DimensionHelper.dimens_20.w,),
+              CustomText(
+                text: data.email.toString(),
+                fontFamily: GoogleFonts.calistoga().fontFamily,
+                fontsize: FontHelper.font_26,
+                color: Colors.white,
+                spacingLetter: 2,
+              )
+            ],
+          ),
+          SizedBox(height: DimensionHelper.dimens_30.h,),
+          Row(
+            children: [
+              CustomText(
+                text: "Phone-Number",
+                fontsize: FontHelper.font_24,
+                color: Colors.white,
+                spacingLetter: 2,
+              ),
+              SizedBox(width: DimensionHelper.dimens_40.w,),
+              CustomText(
+                text: "+91 ${data.phone}",
+                fontFamily: GoogleFonts.calistoga().fontFamily,
+                fontsize: FontHelper.font_28,
+                color: Colors.white,
+                spacingLetter: 2,
+              )
+            ],
+          ),
+          SizedBox(height: DimensionHelper.dimens_30.h,),
+          Row(
+            children: [
+              CustomText(
+                text: "Password",
+                fontsize: FontHelper.font_28,
+                color: Colors.white,
+                spacingLetter: 2,
+              ),
+              SizedBox(width: DimensionHelper.dimens_40.w,),
+              CustomText(
+                //text: data.password.toString(),
+                text: "XXXXXX${data.password.substring(2)}",
+                fontFamily: GoogleFonts.calistoga().fontFamily,
+                fontsize: FontHelper.font_28,
+                color: Colors.white,
+                spacingLetter: 2,
+              )
+            ],
+          ),
+          SizedBox(height: DimensionHelper.dimens_80.h,),
+          CustomButton(
+            callback: () {
+              customUpdateAlert(formKey: formkey, context: context, nameCon: nameCon, email: email, phone: phone, editCallback: () {
+
+              },);
+            },
+            height: DimensionHelper.dimens_60.h,
+            width: DimensionHelper.dimens_all,
+            text: "Edit",
+            cText: false,
+          ),
+          SizedBox(height: DimensionHelper.dimens_50.h,),
+
+        ],
+      );
+    }
+    return SizedBox();
   },
-  child: CustomButton(
+),
+                  ),
+
+                  BlocListener<UserBloc, UserState>(
+                    listener: (context, state) {
+                      if(state is UserLogOutState){
+                        context.go("/signin");
+                        Utils().toastMessage("LogOut Completed");
+                      }
+                      if(state is UserErrorState){
+                        Utils().toastMessage(state.error.toString());
+                      }
+                    },
+                    child: CustomButton(
                       callback: () {
                         context.read<UserBloc>().add(UserLogOutEvent());
                       },
@@ -173,9 +193,8 @@ class _AccountScreenState extends State<AccountScreen> {
                       text: "LogOut",
                       color: Colors.red,
                     ),
-)
-                  ],
-                ),
+                  )
+                ],
               )
             ],
           ),

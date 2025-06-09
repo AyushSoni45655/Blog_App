@@ -8,4 +8,5 @@ abstract class UserRepository{
   Future<Either<Failuress,void>>logOut();
   Future<Either<Failuress,void>>forgotPassword({required String email});
   Future<Either<Failuress,UserEntity>>signup({required UserEntity user});
+  Future<Either<Failuress,UserEntity>>getUser();
 }

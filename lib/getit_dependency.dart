@@ -8,6 +8,7 @@ import 'package:blog_app/features/domain/usecase/addblog_usecase.dart';
 import 'package:blog_app/features/domain/usecase/deleteblog_usecase.dart';
 import 'package:blog_app/features/domain/usecase/forgotpassword_usecase.dart';
 import 'package:blog_app/features/domain/usecase/getblog_usecase.dart';
+import 'package:blog_app/features/domain/usecase/getuser_usecase.dart';
 import 'package:blog_app/features/domain/usecase/isuserloggedin_usecase.dart';
 import 'package:blog_app/features/domain/usecase/logout_usecase.dart';
 import 'package:blog_app/features/domain/usecase/searchblog_usecase.dart';
@@ -39,7 +40,9 @@ Future<void> setUpLocator() async {
    sl.registerLazySingleton<ForgotPasswordUseCase>(() =>ForgotPasswordUseCase(userRepository: sl()),);
    sl.registerLazySingleton<LogOutUseCase>(() =>LogOutUseCase(userRepository: sl()),);
    sl.registerLazySingleton<UseLoggedInUseCase>(() =>UseLoggedInUseCase(userRepository: sl()),);
+   sl.registerLazySingleton<GetUserUseCase>(() => GetUserUseCase(userRepository: sl()),);
    sl.registerFactory(() => UserBloc(
+      getUserUseCase: sl(),
        useLoggedInUseCase: sl(),
        logOutUseCase: sl(),
        forgotPasswordUseCase: sl(),
@@ -55,6 +58,7 @@ Future<void> setUpLocator() async {
    sl.registerLazySingleton<SearchBlogUseCase>(() =>SearchBlogUseCase(blogRepository: sl()),);
    sl.registerLazySingleton<DeleteBlogUseCse>(() =>DeleteBlogUseCse(blogRepository: sl()),);
    sl.registerLazySingleton<UpdateBlogUseCase>(() =>UpdateBlogUseCase(blogRepository: sl()),);
+
    sl.registerFactory(() =>BlogBloc(
        getBlogUseCase: sl(),
        addBlogUseCase: sl(),

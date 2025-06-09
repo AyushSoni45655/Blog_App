@@ -57,4 +57,14 @@ class UserRepositoryImplementation extends UserRepository{
     }
   }
 
+  @override
+  Future<Either<Failuress, UserEntity>> getUser()async{
+    try{
+      final data = await userDataSource.getUser();
+      return Right(data);
+    }catch(e){
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
 }

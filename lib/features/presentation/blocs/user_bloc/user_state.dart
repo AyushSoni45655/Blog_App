@@ -20,3 +20,7 @@ final class UserErrorState extends UserState{
 final class UserLogOutState extends UserState{}
 final class UserIsLoggedInState extends UserState{}
 final class UserForgotPasswordState extends UserState{}
+final class GetUserState extends UserState{
+  final UserEntity entity;
+  GetUserState({required this.entity});
+}

@@ -10,6 +10,7 @@ abstract class UserDataSource{
   Future<UserModel>signin({required String email,required String password});
   Future<bool>isUserLoggedIn();
   Future<void>logOut();
+  Future<UserModel>getUser();
   Future<void>forgotPassword({required String email});
   Future<UserModel>signup({required UserEntity users});
 }
@@ -59,6 +60,18 @@ class UserDataSourceImplementation extends UserDataSource{
     await firestore.collection("BlogUser").doc(credential.user!.uid).set(modal.toMap());
     await sh.setString("Uid", credential.user!.uid);
     return modal;
+  }
+
+  @override
+  Future<UserModel> getUser()async{
+    final String? id = await sh.getString("Uid");
+    if(id != null){
+      final data = await firestore.collection("BlogUser").doc(id).get();
+      return UserModel.fromMap(data.data()!);
+    }else {
+      throw Exception("User ID not found in SharedPreferences");
+    }
+
   }
 
 }
