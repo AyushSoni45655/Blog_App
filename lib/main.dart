@@ -1,6 +1,9 @@
 import 'package:blog_app/features/presentation/blocs/blogs/blog_bloc.dart';
 import 'package:blog_app/features/presentation/blocs/nav_bloc/navigation_bloc.dart';
 import 'package:blog_app/features/presentation/blocs/user_bloc/user_bloc.dart';
+import 'package:blog_app/features/presentation/screens/auths/signin.dart';
+import 'package:blog_app/features/presentation/screens/auths/signup.dart';
+import 'package:blog_app/features/presentation/screens/splashes/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,8 +51,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp
-            .router
+        return MaterialApp.router
           (
           builder: (context, child) {
             return ResponsiveWrapper.builder(
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AAppTheme.darkTheme,
           theme: AAppTheme.lightTheme,
           themeMode: ThemeMode.dark,
-          routerConfig: goRouter(isFirst: isfirst)
+         routerConfig: goRouter(isFirst: isfirst),
           //home: NavigationScreen(),
           //home:AccountScreen(),
               //isFirst: isfirst
